@@ -26,8 +26,7 @@ The system is designed to be incrementally extensible, with clear separation bet
 
 Fully integrated in v0, ongoing rework in v1.
 
-- [**V0**](./V0_Complete): fully functioning version, verified and validated hardware integration. Documentation coming soon
-- [**V1 (WIP)**](./V1_WIP): ongoing semantic rework, adding in-code comments, and localised logic / architecture refactors
+- [**V0**](./V0_Complete): fully functioning version, verified and validated hardware integration.
 
 ---
 ## Behaviour:

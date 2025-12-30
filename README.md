@@ -27,7 +27,7 @@ Ongoing simplified ECU firmware-like prototype project. The emphasis is on syste
 ---
 ## Project Status
 
-### Complete:
+### Complete
 
 [**Cylinder + Flywheel RPM Calculation System**](./Main_Project):
 
@@ -40,6 +40,14 @@ Integrates previously separate cylinder and flywheel rpm projects into one syste
 	- RPM calculation: Hall sensor + standard servo with magnet for reference edge generation
 	- Plotter display: system data telemetry
 - v0 fully functional, v1 WIP
+
+### In Progress
+
+[**WIP Folder**](./WIP):
+
+Modules and code that are being worked on. Fully validated elements will be integrated into the main project.
+
+- [V1](./WIP/Main_v1_WIP): ongoing semantic rework, adding in-code comments, localised logic / architecture refactors
 
 ---
 ## Scope & Design Boundaries
@@ -54,3 +62,13 @@ Several design choices differ from real engines and ECUs on purpose, in order to
 - Safety-critical, real-time, and performance constraints of production ECUs are out of scope for this prototype.
 
 The goal is to explore system structure, data flow, and incremental integration of engine-related sub-systems, while building a foundation for more realistic models and hardware in future iterations.
+
+---
+## Repo Structure
+
+ICE_Engine_Simulation/
+├─ Main_Project/                  # Fully validated modules
+│  ├─ Tests_and_Drafts/           # Drafts and test scripts used to validate v0
+│  └─ V0_Complete/                # Fully functional v0
+└─ WIP/                           # Work-in-progress modules
+   └─ Main_v1_WIP/                # Ongoing v1 rework, refactors, comments

@@ -4,8 +4,8 @@ This folder contains all the in-progress work on this project. Fully validated m
 
 ## Current WIPs:
 
-* [Main Project v1](./Main_v1_WIP):
-- Semantic clean-up
-- In-code comments addition
-- Data interfaces for plotter display
-- Localised logic refactors
+[Main Project v1](./Main_v1_WIP):
+* Semantic clean-up
+* In-code comments addition
+* Data interfaces for plotter display
+* Localised logic refactors
