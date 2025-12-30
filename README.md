@@ -29,7 +29,7 @@ Ongoing simplified ECU firmware-like prototype project. The emphasis is on syste
 
 ### Complete:
 
-[**Cylinder + Flywheel RPM Calculation System**](https://github.com/s-0-p-h-i-a/ICE_Engine_Simulations/tree/main/Full_Engine/Cylinder_and_Flywheel):
+[**Cylinder + Flywheel RPM Calculation System**](./Cylinder_and_Flywheel):
 
 Integrates previously separate cylinder and flywheel rpm projects into one system with centralised user control.
 
