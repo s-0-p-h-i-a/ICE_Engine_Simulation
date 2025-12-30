@@ -7,10 +7,10 @@ Ongoing simplified ECU firmware-like prototype project. The emphasis is on syste
 ---
 ## Goals / Plans:
 
-- Build a simple, deterministic ICE ECU firmware-inspired engine control/simulation system
+- Build a simple, deterministic ICE ECU firmware-inspired engine control / behaviour simulation system
 - Progressively integrate different sub-systems
 - Explore fault injection and CAN communication
-- Implement hardware-based behaviour simulations and visualisations
+- Implement hardware-based behaviour simulations / visualisations
 
 ### Planned Sub-systems:
 - Cylinder head:
@@ -29,7 +29,7 @@ Ongoing simplified ECU firmware-like prototype project. The emphasis is on syste
 
 ### Complete:
 
-[**Cylinder + Flywheel RPM Calculation System**](./Cylinder_and_Flywheel):
+[**Cylinder + Flywheel RPM Calculation System**](./Main_Project):
 
 Integrates previously separate cylinder and flywheel rpm projects into one system with centralised user control.
 
@@ -40,3 +40,17 @@ Integrates previously separate cylinder and flywheel rpm projects into one syste
 	- RPM calculation: Hall sensor + standard servo with magnet for reference edge generation
 	- Plotter display: system data telemetry
 - v0 fully functional, v1 WIP
+
+---
+## Scope & Design Boundaries
+
+This project is intentionally not a physically accurate engine model or a production-grade ECU implementation.
+
+Several design choices differ from real engines and ECUs on purpose, in order to focus on specific learning objectives:
+
+- The “flywheel” is servo-driven and mechanically unrealistic, but deliberately chosen to generate clean, controllable edge signals for RPM measurement and timing logic.
+- Hardware complexity is kept minimal to prioritise understanding signal flow, state handling, and module interaction over component realism.
+- Timing, actuation, and sensing are simplified to allow step-by-step validation and debugging without relying on large external libraries.
+- Safety-critical, real-time, and performance constraints of production ECUs are out of scope for this prototype.
+
+The goal is to explore system structure, data flow, and incremental integration of engine-related sub-systems, while building a foundation for more realistic models and hardware in future iterations.
