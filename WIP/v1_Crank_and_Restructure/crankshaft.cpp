@@ -63,5 +63,5 @@ void moveCrankshaft(unsigned int throttleInput) {
 	
 	advanceCrankshaftAngle(assignCrankshaftAngleStep(throttleInput));
 	
-	updateLEDVisuals(throttleInput);	
+	advanceCrankshaft(throttleInput);	
 }

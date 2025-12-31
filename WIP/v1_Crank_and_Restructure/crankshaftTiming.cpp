@@ -7,22 +7,24 @@
 #define LEDS 1
 #define TOTAL_ELEMENTS 2
 #define TOTAL_STATES 4
+#define PAUSE 100
+#define PHASE_STEP 1000
 
 // 4-Stroke Cycle
 typedef enum { INTAKE = 0, COMPRESSION = 1, COMBUSTION = 2, EXHAUST = 3 } Strokes;
 // Cylinder LED display timing levels
-typedef enum { SPEED_TWO_PAUSE = 100, SPEED_ONE_PAUSE = 550, IDLE_PAUSE = 1000 } CylinderDisplayPause;
+typedef enum { IDLE_INCREMENT = 10, SPEED_ONE_INCREMENT = 100, SPEED_TWO_INCREMENT = 500 } PhaseIncrement;
 
 // CONTROL ARRAYS:
 // Blink pauses array
-static const unsigned int LED_BlinkLevels[TOTAL_STATES] = { IDLE_PAUSE, SPEED_ONE_PAUSE, SPEED_TWO_PAUSE };
+static const unsigned int phaseIncrementLevels[TOTAL_STATES] = { IDLE_INCREMENT, SPEED_ONE_INCREMENT, SPEED_TWO_INCREMENT };
 
 // 	========= VARIABLES =========
 // Current stroke
 static unsigned int currentStroke = INTAKE;
 
 static bool displayON = 0;
-static bool switchNow = 0;
+static unsigned int currentPhase = 0;
 
 // 	========= FUNCTIONS ========= 
 // Helper functions
@@ -35,9 +37,9 @@ static void updateDisplay(void);
 Strokes getCurrentStroke(void) { return currentStroke; }
 
 // Set cylinder LED display blink pause
-static unsigned int assignLEDBlinkPause(unsigned int throttleInput) {
+static unsigned int assignPhaseIncrement(unsigned int throttleInput) {
 
-	return LED_BlinkLevels[throttleInput];
+	return phaseIncrementLevels[throttleInput];
 }
 
 // Move forward in 4-stroke cycle
@@ -51,18 +53,24 @@ static unsigned int updateStroke(void) {
 }
 
 // Blink cycle + state update driver
-static bool updateTimingStates(unsigned int pause) {
+static bool updatePhase(unsigned int increment) {
 
 	// Timestamp and delta
 	unsigned long currentTime = millis();
 	unsigned long delta = currentTime - lastSwitch;
 
 	// Update control flags and timestamp
-	if (delta >= pause) {
-		lastSwitch += pause;
-		return 1;
-	} else {
-		return 0;
+	if (delta >= PAUSE) {
+		
+		currentPhase += increment;
+		
+		if (currentPhase >= PHASE_STEP) {
+			currentPhase -= PHASE_STEP;
+			return 1;
+		} else {
+			return 0;
+		}
+		lastSwitch += PAUSE;
 	}
 }
 
@@ -80,9 +88,9 @@ static void startDisplayCycle(void) {
 	writeCylinderPins(currentStroke);
 }
 
-static void updateSystem(unsigned int pause) {
+static void updateSystem(unsigned int increment) {
 	
-	bool switchNow = updateTimingStates(pause);
+	bool switchNow = updatePhase(increment);
 	
 	if (switchNow) {
 		// LEDs were on = blink cycle complete -> turn LEDs off, move forward
@@ -96,7 +104,7 @@ static void updateSystem(unsigned int pause) {
 	}	
 }
 	
-void updateLEDVisuals(unsigned int throttleInput) {
+void advanceCrankshaft(unsigned int throttleInput) {
 	
-	updateSystem(assignLEDBlinkPause(throttleInput););
+	updateSystem(phaseIncrementLevels[throttleInput]);
 }
