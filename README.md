@@ -67,8 +67,15 @@ The goal is to explore system structure, data flow, and incremental integration 
 ## Repo Structure
 
 ICE_Engine_Simulation/
-├─ Main_Project/                  # Fully validated modules
-│  ├─ Tests_and_Drafts/           # Drafts and test scripts used to validate v0
-│  └─ V0_Complete/                # Fully functional v0
-└─ WIP/                           # Work-in-progress modules
-   └─ Main_v1_WIP/                # Ongoing v1 rework, refactors, comments
+
+├─ Main_Project/ -------------------- Fully validated modules
+
+---└─ Tests_and_Drafts/------------ Drafts and test scripts used to validate v0
+
+---└─ V0_Complete/---------------- Fully functional v0
+
+└─ WIP/----------------------------- Work-in-progress modules
+
+---└─ Main_v1_WIP/----------------- Ongoing v1 rework, refactors, comments
+
+---└─ v1_Crank_and_Restructure/--- Draft for crankshaft module integration and architecture changes
