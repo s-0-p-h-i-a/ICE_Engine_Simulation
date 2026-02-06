@@ -13,6 +13,13 @@ It is made of the following sub-systems:
 The system is designed to be incrementally extensible, with clear separation between control logic, hardware interfaces, and display/logging layers.
 
 ---
+## Demo
+
+![Arduino + sensor shield, breaboard with LEDs representing a cylinder, servo motor with magnet, Hall sensor](./Demos/fullsystem.gif)
+
+See [Demos](./Demos) folder for cylinder display, serial plotter and multimeter reading GIFs.
+
+---
 ## Hardware
 
 * Arduino MCU (ECU side)
