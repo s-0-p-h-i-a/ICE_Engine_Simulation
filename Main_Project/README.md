@@ -46,6 +46,34 @@ Fully integrated in v0, ongoing rework in v1.
 |   Speed 1   | 4° angle increment | 550ms on/off  |
 |   Speed 2   | 8° angle increment | 100ms on/off  |
 
+### Cylinder LED visuals:
+- Blue LED		= intake valve
+- Green LED		= exhaust valve
+- Yellow LED	= fuel injector
+- Red LED		= spark plug
+- White LEDS:
+	- Top row 		= TDC
+	- Bottom row	= BDC
+	
+#### Cycle:
+
+- Intake valve open, fuel injection on, piston BDC
+
+![Breadboard with two LEDs representing a cylinder in the intake stroke](https://github.com/s-0-p-h-i-a/Engine_Modules/blob/main/1_Cylinder/demos/intake.gif)
+
+- Compression: piston TDC
+
+![Breadboard with two LEDs representing a cylinder in the compression stroke](https://github.com/s-0-p-h-i-a/Engine_Modules/blob/main/1_Cylinder/demos/compression.gif)
+
+- Combustion: spark plug on, piston BDC
+
+![Breadboard with two LEDs representing a cylinder in the combustion stroke](https://github.com/s-0-p-h-i-a/Engine_Modules/blob/main/1_Cylinder/demos/combustion.gif)
+
+- Exhaust: exhaust valve open, piston TDC
+
+![Breadboard with two LEDs representing a cylinder in the exhaust stroke](https://github.com/s-0-p-h-i-a/Engine_Modules/blob/main/1_Cylinder/demos/exhaust.gif)
+
+
 ---
 ## Code Architecture
 
