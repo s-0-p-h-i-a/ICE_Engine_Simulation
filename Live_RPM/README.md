@@ -31,8 +31,6 @@ See [Demos](./Demos) folder for cylinder display, serial plotter and multimeter 
 ---
 ## Project Status
 
-Fully integrated in v0, ongoing rework in v1.
-
 - [**V0**](./V0_Complete): fully functioning version, verified and validated hardware integration.
 
 ---
@@ -94,9 +92,6 @@ Fully integrated in v0, ongoing rework in v1.
 * **Drive module**				: on/off and speed control for the flywheel and cylinder
 * **Plotter module**			: displays data on serial plotter
 
-**v1 only:**
-* **Plotter interface modules**	: expose processed subsystem data for plotting and diagnostics.
-
 Modules are designed to be testable in isolation, with integration exposing timing and logic issues for refinement.
 
 ---
@@ -117,5 +112,3 @@ This project involved both hardware and firmware challenges, including:
 * **Fault injection**: timing lag, jitter, dropped events, snapshot logging
 * **Expanded engine structure**: crank + cylinder head module with DOHC, valves, injectors, plugs
 * **CAN integration**: second MCU handles user input and logging
-
-Additional documentation, diagrams, demos, and design notes will be added as the project evolves.
