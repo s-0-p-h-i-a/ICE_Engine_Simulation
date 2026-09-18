@@ -1,81 +1,86 @@
-# ECU-Inspired Engine Timing Prototype
+# ICE ECU Firmware-Inspired Projects
 
 ## Overview
 
-Ongoing simplified ECU firmware-like prototype project. The emphasis is on system design, integration, debugging, and observing system behaviour rather than physical engine simulation.
+Microcontroller-based applied learning projects using ICE ECU firmware as thematic context. So far all projects represent a 1-cylinder engine. Planned expansion towards a 4-cylinder engine.
 
 ---
-## Goals / Plans:
+## Goals:
 
-- Build a simple, deterministic ICE ECU firmware-inspired engine control / behaviour simulation system
-- Progressively integrate different sub-systems
-- Explore fault injection and CAN communication
-- Implement hardware-based behaviour simulations / visualisations
-
-### Planned Sub-systems:
-- Cylinder head:
-	- Double camshafts
-	- Valves
-	- Fuel injectors
-	- Spark plugs
-- Cylinder:
-	- Cylinder body
-	- Piston
-- Crankshaft
-- Flywheel
+The main goals are to practice various aspects of embedded systems development:
+- Control firmware development
+- Completing full development cycles from planning to hardware integration
+- Abstracting real-world mechanical processes into code and logic
+- Learning and applying C syntax
+- Applying software design concepts
+- Integrating sensors
+- Implementing communications
+- Progressive software bring-up
+- Structured testing/debugging
+- Iterative development
+- Implementing state machines
+- Isolating hardware logic
 
 ---
-## Project Status
+## Projects
 
 ### Complete
 
-[**Cylinder + Flywheel RPM Calculation System**](./Main_Project):
+[**Chapter 1: Cylinder Visualisation + Flywheel RPM Calculation System**](./Live_RPM):
 
-Integrates previously separate cylinder and flywheel rpm projects into one system with centralised user control.
+Joystick-controlled system with 2 main simulations: visualisation of cylinder elements as they move through the 4-stroke cycle, and rising edge signal generation for live RPM calculation.
 
-- User-controlled via joystick
-- 4 main sub-systems:
-	- Control: user input for on/off and speed
-	- Cylinder: breadboard LED display
+- 4 sub-systems:
+	- Control: user input for on/off and flywheel angular speed
+	- Cylinder: breadboard LED display representing piston, valves, spark plug and injector
 	- RPM calculation: Hall sensor + standard servo with magnet for reference edge generation
 	- Plotter display: system data telemetry
-- v0 fully functional, v1 WIP
-
-### In Progress
-
-[**WIP Folder**](./WIP):
-
-Modules and code that are being worked on. Fully validated elements will be integrated into the main project.
-
-- [V1](./WIP/Main_v1_WIP): ongoing semantic rework, adding in-code comments, localised logic / architecture refactors
+- V0 fully functional, unfinished V1 to practice implementing added complexity
 
 ---
-## Scope & Design Boundaries
+### In Progress
 
-This project is intentionally not a physically accurate engine model or a production-grade ECU implementation.
+[**Chapter 2: HIL Testing Harness Inspired System**](./HIL_Harness):
 
-Several design choices differ from real engines and ECUs on purpose, in order to focus on specific learning objectives:
+2-MCU system for generation of ICE ECU data, subsequent UART transmission of bit-packed "engine snapshots" containing engine behaviour data + enum-based error and status codes, and computer-based telemetry.
 
-- The “flywheel” is servo-driven and mechanically unrealistic, but deliberately chosen to generate clean, controllable edge signals for RPM measurement and timing logic.
-- Hardware complexity is kept minimal to prioritise understanding signal flow, state handling, and module interaction over component realism.
-- Timing, actuation, and sensing are simplified to allow step-by-step validation and debugging without relying on large external libraries.
-- Safety-critical, real-time, and performance constraints of production ECUs are out of scope for this prototype.
+Progress from chapter 1: explicit implementation of state machines, introduction of embedded software concepts such as event handlers, system managers, enum-based error and status code tracking, error handling execution path design, uniformisation of code structures throughout the system for easier maintenance, debugging, and expansion into more complex systems.
 
-The goal is to explore system structure, data flow, and incremental integration of engine-related sub-systems, while building a foundation for more realistic models and hardware in future iterations.
+#### TX Side: STM32 user-controlled engine data generation
+
+User turns engine on/off and controls flywheel angular speed. MCU generates engine component data (RPM, camshaft angle, etc), packs it into a byte alongside system status codes, sends to RX MCU.
+
+- Simulated engine components:
+	- Crankshaft
+	- Camshaft
+	- Flywheel
+	- Piston
+	- Valves
+	- Spark plug
+	- Injector
+
+#### RX side: Arduino receiver and telemetry visualiser
+
+MCU receives and unpacks bytes, then processes data for visualisation via Arduino Serial Plotter.
+
+Modules:
+- Data reception
+- Data processing: unpacking and processing for visual representation
+- Telemetry: serial plotter visualisation
 
 ---
 ## Repo Structure
 
 ICE_Engine_Simulation/
 
-├─ Main_Project/ -------------------- Fully validated modules
+├─ Live_RPM/ -------------------- Cylinder Visualisation + Flywheel RPM Calculation System
 
----└─ Tests_and_Drafts/------------ Drafts and test scripts used to validate v0
+---└─ Tests_and_Drafts/---------- Drafts and test scripts used to validate V0
 
----└─ V0_Complete/---------------- Fully functional v0
+---└─ Demos/--------------------- Physical system demo GIFs, videos of telemetry visualisation
 
-└─ WIP/----------------------------- Work-in-progress modules
+---└─ V0_Complete/--------------- Fully functional v0
 
----└─ Main_v1_WIP/----------------- Ongoing v1 rework, refactors, comments
+---└─ V1_Unfinished/------------- V1 expansions, intentionally unfinished to progress to HIL system project
 
----└─ v1_Crank_and_Restructure/--- Draft for crankshaft module integration and architecture changes
+└─ HIL_Harness/------------------ HIL Testing Harness Inspired System V0 (ONGOING WIP)
