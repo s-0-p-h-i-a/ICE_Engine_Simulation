@@ -1,0 +1,12 @@
+#include <stdint.h>
+
+#ifndef DATA_RECEPTION_INTERFACE_H
+#define DATA_RECEPTION_INTERFACE_H
+
+extern bool receiveArray(void);
+
+extern uint8_t getReceivedArray(uint8_t elementNumber);
+
+extern uint8_t getReceivedSnapshotCounter(void);
+
+#endif

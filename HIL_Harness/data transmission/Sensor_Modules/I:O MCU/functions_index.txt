@@ -1,0 +1,159 @@
+ANALOG I/O + DATA LOGGING PROJECT
+
+FUNCTIONS INDEX
+
+1. Hardware modules
+2. Colour control modules
+3. Main RGB module
+4. Range & error handling
+5. Data processing
+
+==============================================================================================
+
+1. Hardware modules
+
+1.1 Water level sensor:
+water_level_sensor.cpp/.h
+- uint16_t readWaterLevelSensorInput(uint8_t waterLevelSensorPin)
+	- Called in: controlGreenLight in control_GREEN.cpp
+
+----------------------------------------------------------------------------------------------
+	
+1.2 Potentiometer:
+potentiometer.cpp/.h
+- uint16_t readPotentiometerInput(uint8_t potentiometerPin)
+	- Called in: controlBlueLight in control_BLUE.cpp
+
+----------------------------------------------------------------------------------------------
+	
+1.3 Joystick:
+joystick.cpp/.h
+- uint16_t readJoystickInput(uint8_t joystickPin)
+	- Called in: controlRedLight in control_RED.cpp
+
+==============================================================================================
+
+2. Colour control modules
+
+2.1 Red RGB leg:
+mode_selection_RED.cpp/.h
+- static bool checkIfJoystickStateValid(bool neutralMode, bool modeOne, bool modeTwo)
+	- Called in: computeJoystickMode in mode_selection_RED.cpp
+
+- JoystickModes computeJoystickMode(uint16_t input)
+	- Called in: controlRedLight in control_RED.cpp
+	
+control_RED.cpp/.h
+- static void turnRedLightOff(uint8_t redPin)
+- static void controlRedLightBrightness(uint8_t redPin, uint8_t brightness)
+- static void controlRedLightToggle(uint8_t redPin, uint8_t blinkPauseInput)
+- static void processModeSelection(uint8_t mode)
+	- All called in: controlRedLight in control_RED.cpp
+
+- RedSystemStates controlRedLight(uint8_t redPin)
+	- Called in: controlRGB in rgb_led.cpp
+	- Inside redSystemCheck: redSystemCheck(controlRedLight(RED_PIN))
+
+- uint16_t getJoystickInput(void)
+- uint8_t getRedBrightness(void)
+- uint16_t getRedBlinkPause(void)
+	- All called in: raw_data_interface.cpp
+
+- RangeErrorStatus getRedRangeHandlingStatus(void)
+	- Called in: error_reports.cpp
+
+----------------------------------------------------------------------------------------------
+
+2.2 Green RGB leg:
+control_GREEN.cpp/.h
+- static void turnGreenLightOff(uint8_t greenPin)
+- static void controlGreenLightBrightness(uint8_t greenPin, uint8_t brightness)
+	- All called in: controlGreenLight in control_GREEN.cpp
+
+- uint16_t getWaterLevelSensorInput(void)
+- uint8_t getGreenBrightness(void)
+	- All called in: raw_data_interface.cpp
+
+- RangeErrorStatus getGreenRangeHandlingStatus(void)
+	- Called in: error_reports.cpp
+
+----------------------------------------------------------------------------------------------
+	
+2.3 Blue RGB leg:
+control_BLUE.cpp/.h
+- static void turnBlueLightOff(uint8_t bluePin)
+- static void controlBlueLightBrightness(uint8_t bluePin, uint8_t brightness)
+	- All called in: controlBlueLight in control_BLUE.cpp
+
+- uint16_t getPotentiometerInput(void)
+- uint8_t getBlueBrightness(void)
+	- All called in: raw_data_interface.cpp
+
+- RangeErrorStatus getBlueRangeHandlingStatus(void)
+	- Called in: error_reports.cpp
+	
+==============================================================================================
+	
+3. Main RGB control module
+
+rgb_led.cpp/.h
+- static void redSystemCheck(RedSystemStates state)
+	- Called in: controlRGB: redSystemCheck(controlRedLight(RED_PIN)) in control_RED.cpp
+
+- void controlRGB(void)
+	- Called in: main .ino file
+
+==============================================================================================
+
+4. Error & range handling
+
+4.1 Error handling for red module:
+error_handling_RED.cpp/.h
+- void handleJoystickInputError(void)
+- bool checkIfExcessErrorsBufferElapsed(void)
+- void resetErrorTracking(void)
+	- All called in: controlRedLight in control_RED.cpp
+
+----------------------------------------------------------------------------------------------
+
+4.2 Range handling:
+range_handling.cpp/.h
+- uint16_t limitToAnalogMax(uint16_t analogInput)
+- uint8_t limitToRGBMax(uint16_t inputValue)
+- uint8_t clampInputToRGBRange(uint16_t sensorInput)
+- RangeErrorStatus rangeHandlingStatus(void)
+	- All called in:
+		- control_RED.cpp
+		- mode_selection_RED.cpp
+		- control_GREEN.cpp
+		- control_BLUE.cpp
+
+----------------------------------------------------------------------------------------------
+
+4.3 Error reports:
+error_reports.cpp
+- SystemErrors checkRangeHandlingThisLoop(void)
+	- Called in: main
+
+==============================================================================================
+	
+5. Data processing & display
+
+5.1 Raw data processing:
+raw_data_interface.cpp/.h
+- No functions, only uses getters from the colour control modules to define local vars
+
+----------------------------------------------------------------------------------------------
+
+5.2 Data processing for logger MCU
+data_processing_LOGGER.cpp/.h
+- uint8_t bitPacking16to8_Multiplier(uint16_t valueToPack)
+- uint8_t bitPacking16to8_Rest(uint16_t valueToPack)
+- uint8_t bitPacking16to8_Flag(uint16_t valueToPack)
+	- All called in data_processing_LOGGER.cpp to define local vars
+
+----------------------------------------------------------------------------------------------
+	
+===================== TO-DO ===================== 	
+5.3 Data processing for Plotter
+data_processing_PLOTTER.cpp/.h
